@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.amwms.food4u.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/restaurantMenuFragment"
+        android:name="com.amwms.food4u.fragments.RestaurantMenuFragment"
+        android:label="fragment_restaurant_menu"
+        tools:layout="@layout/fragment_restaurant_menu" />
+    <fragment
+        android:id="@+id/searchMenuFragment"
+        android:name="com.amwms.food4u.fragments.SearchMenuFragment"
+        android:label="fragment_search_menu"
+        tools:layout="@layout/fragment_search_menu" />
+    <fragment
+        android:id="@+id/createSetFragment"
+        android:name="com.amwms.food4u.fragments.CreateSetFragment"
+        android:label="fragment_create_set"
+        tools:layout="@layout/fragment_create_set" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.amwms.food4u.fragments.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
+</navigation>

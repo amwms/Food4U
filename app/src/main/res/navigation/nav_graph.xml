@@ -7,9 +7,13 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.amwms.food4u.fragments.HomeFragment"
+        android:name="com.amwms.food4u.fragments.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_countryFragment"
+            app:destination="@id/countryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/restaurantMenuFragment"
         android:name="com.amwms.food4u.fragments.RestaurantMenuFragment"
@@ -30,4 +34,13 @@
         android:name="com.amwms.food4u.fragments.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/countryFragment"
+        android:name="com.amwms.food4u.fragments.home.CountryFragment"
+        android:label="fragment_country"
+        tools:layout="@layout/fragment_country" >
+        <action
+            android:id="@+id/action_countryFragment_to_homeFragment"
+            app:destination="@id/homeFragment"/>
+    </fragment>
 </navigation>

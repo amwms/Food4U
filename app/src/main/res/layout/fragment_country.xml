@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.home.CountryFragment">
+
+    <data>
+        <variable
+            name="countryFragment"
+            type="com.amwms.food4u.fragments.home.CountryFragment" />
+        <variable
+            name="viewModel"
+            type="com.amwms.food4u.model.CoordinateViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top|center"
+            android:text="@{viewModel.tempCountry.toString()}" />
+
+        <Button
+            android:id="@+id/poland_button_choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="@{() -> countryFragment.chooseCountry(@string/poland)}"
+            android:text="@string/poland" />
+
+        <Button
+            android:id="@+id/submit_country_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:text="@string/submit"
+            android:onClick="@{() -> countryFragment.submitCountryChoice()}"
+            />
+
+    </FrameLayout>
+</layout>

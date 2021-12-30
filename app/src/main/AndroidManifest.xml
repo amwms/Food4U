@@ -3,6 +3,7 @@
     package="com.amwms.food4u">
 
     <application
+        android:name="com.amwms.food4u.Food4UApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

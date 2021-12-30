@@ -6,13 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.amwms.food4u.R
 import com.amwms.food4u.databinding.FragmentHomeBinding
-import com.amwms.food4u.model.CoordinateViewModel
+import com.amwms.food4u.viewmodels.CoordinateViewModel
 
 class HomeFragment : Fragment() {
 

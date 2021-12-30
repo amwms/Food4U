@@ -9,7 +9,7 @@
             type="com.amwms.food4u.fragments.home.CountryFragment" />
         <variable
             name="viewModel"
-            type="com.amwms.food4u.model.CoordinateViewModel" />
+            type="com.amwms.food4u.viewmodels.CoordinateViewModel" />
     </data>
 
     <FrameLayout

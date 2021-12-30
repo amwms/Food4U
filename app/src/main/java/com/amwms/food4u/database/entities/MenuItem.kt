@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class MenuItem(
     @PrimaryKey val id: Int,
-    @NonNull @ColumnInfo(name = "dish_id") val dish_id: Int,
-    @NonNull @ColumnInfo(name = "country_id") val country_id: Int,
-    @NonNull @ColumnInfo(name = "restaurant_id") val restaurant_id: Int
+    @NonNull @ColumnInfo(name = "dish_id") val dishId: Int,
+    @NonNull @ColumnInfo(name = "country_id") val countryId: Int,
+    @NonNull @ColumnInfo(name = "restaurant_id") val restaurantId: Int
 )

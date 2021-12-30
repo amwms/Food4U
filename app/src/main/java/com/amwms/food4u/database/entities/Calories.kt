@@ -4,10 +4,12 @@ package com.amwms.food4u.database.entities
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 
 @Entity
 data class Calories(
+    @PrimaryKey(autoGenerate = true) val id: Long,
     @NonNull @ColumnInfo(name = "menuitem_id") val menuitem_id: Int,
     @NonNull @ColumnInfo(name = "energy_kj") val energy_kj: Int,
     @NonNull @ColumnInfo(name = "energy_kcal") val energy_kcal: Int,

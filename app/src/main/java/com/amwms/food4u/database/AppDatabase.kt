@@ -17,7 +17,7 @@ import com.amwms.food4u.database.entities.*
         Restaurant::class),
     version = 1)
 abstract class AppDatabase: RoomDatabase() {
-    abstract fun Food4UDao(): Food4UDao
+    abstract fun food4uDao(): Food4UDao
 
     companion object {
         @Volatile

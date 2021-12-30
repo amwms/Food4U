@@ -23,7 +23,10 @@ interface Food4UDao {
     @Query("SELECT * FROM dish ORDER BY id ASC")
     fun getAllDishes(): Flow<List<Dish>>
 
-    @Query("SELECT * FROM dish WHERE name LIKE :pattern ORDER BY id ASC")
-    fun getDishesContaining(pattern: String): Flow<List<Dish>>
+    @Query("SELECT * FROM dish " +
+            "WHERE name LIKE :pattern " +
+            "AND id IN (SELECT dish_id FROM menuitem WHERE country_id = :countryId AND restaurant_id = :restaurantId) " +
+            "ORDER BY id ASC")
+    fun getDishesContaining(pattern: String, countryId: Int, restaurantId: Int): Flow<List<Dish>>
 
 }

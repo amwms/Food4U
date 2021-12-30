@@ -3,11 +3,8 @@ package com.amwms.food4u.fragments
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
@@ -77,6 +74,11 @@ class RestaurantMenuFragment : Fragment() {
     }
 
     private fun getDishNameEditTextInput() {
+        if (noCountryOrRestaurant()) {
+            toastNoCountryOrRestaurant()
+            return
+        }
+
         val stringInEditTextField = binding.dishNameFieldEditText.text.toString();
 
         Log.d("DishNameEditTextInput", stringInEditTextField)
@@ -87,7 +89,8 @@ class RestaurantMenuFragment : Fragment() {
 
         recyclerView.adapter = restaurantMenuAdapter
         lifecycle.coroutineScope.launch {
-            viewModel.allDishesContainingString(stringInEditTextField).collect() {
+            viewModel.allDishesContainingString(stringInEditTextField,
+                1, 2).collect() {
                 restaurantMenuAdapter.submitList(it)
             }
         }
@@ -102,5 +105,23 @@ class RestaurantMenuFragment : Fragment() {
             return true
         }
         return false
+    }
+
+    private fun noCountryOrRestaurant() : Boolean {
+        return sharedViewModel.country.value.equals("") /*|| sharedViewModel.restaurant.equals("")*/
+    }
+
+    private fun toastNoCountryOrRestaurant() {
+        val toast: Toast
+
+        if (sharedViewModel.country.value.equals("") && sharedViewModel.restaurant.value.equals(""))
+            toast = Toast.makeText(activity, "Set country and restaurant", Toast.LENGTH_SHORT)
+        else if (sharedViewModel.country.value.equals(""))
+            toast = Toast.makeText(activity, "Set country", Toast.LENGTH_SHORT)
+        else
+            toast = Toast.makeText(activity, "Set restaurant", Toast.LENGTH_SHORT)
+
+        toast.setGravity(Gravity.CENTER, 0 , 0)
+        toast.show()
     }
 }

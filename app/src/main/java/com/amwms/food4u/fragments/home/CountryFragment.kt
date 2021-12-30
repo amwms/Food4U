@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.amwms.food4u.R
 import com.amwms.food4u.databinding.FragmentCountryBinding
-import com.amwms.food4u.databinding.FragmentHomeBinding
 import com.amwms.food4u.viewmodels.CoordinateViewModel
 
 

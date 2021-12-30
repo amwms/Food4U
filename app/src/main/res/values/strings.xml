@@ -11,4 +11,5 @@
     <string name="country">Country</string>
     <string name="poland">Poland</string>
     <string name="submit">Submit</string>
+    <string name="dish_name_label">Dish name</string>
 </resources>

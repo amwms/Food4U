@@ -2,10 +2,7 @@ package com.amwms.food4u.database
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.amwms.food4u.database.entities.Allergen
-import com.amwms.food4u.database.entities.Country
-import com.amwms.food4u.database.entities.Dish
-import com.amwms.food4u.database.entities.Restaurant
+import com.amwms.food4u.database.entities.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -29,4 +26,8 @@ interface Food4UDao {
             "ORDER BY id ASC")
     fun getDishesContaining(pattern: String, countryId: Int, restaurantId: Int): Flow<List<Dish>>
 
+    @Query("SELECT * FROM calories " +
+            "WHERE menuitem_id " +
+            "IN (SELECT dish_id FROM menuitem WHERE :dishId = dish_id)")
+    fun getDishIdCalories(dishId: Int): Flow<List<Calories>>
 }

@@ -2,14 +2,13 @@ package com.amwms.food4u.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amwms.food4u.Food4UApplication
@@ -22,14 +21,11 @@ import kotlinx.coroutines.launch
 class RestaurantMenuFragment : Fragment() {
 
     private var _binding: FragmentRestaurantMenuBinding? = null
-
     private val binding get() = _binding!!
-
     private lateinit var recyclerView: RecyclerView
-
     private val sharedViewModel: CoordinateViewModel by activityViewModels()
 
-    private val viewModel: MenuViewModel by activityViewModels {
+    private val menuViewModel: MenuViewModel by activityViewModels {
         MenuViewModelFactory(
             (activity?.application as Food4UApplication).database.food4uDao()
         )
@@ -50,22 +46,13 @@ class RestaurantMenuFragment : Fragment() {
         binding.dishNameSubmitButton.setOnClickListener { getDishNameEditTextInput() }
 
         binding.dishNameFieldEditText.setOnKeyListener { view, keyCode, _ ->
-            handleKeyEvent(
-                view,
-                keyCode
-            )
+            handleEnterKeyEvent(view, keyCode)
         }
 
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val restaurantMenuAdapter = RestaurantMenuAdapter({})
-
         recyclerView.adapter = restaurantMenuAdapter
-//        lifecycle.coroutineScope.launch {
-//            viewModel.allDishes().collect() {
-//                restaurantMenuAdapter.submitList(it)
-//            }
-//        }
     }
 
     override fun onDestroyView() {
@@ -80,23 +67,22 @@ class RestaurantMenuFragment : Fragment() {
         }
 
         val stringInEditTextField = binding.dishNameFieldEditText.text.toString();
-
-        Log.d("DishNameEditTextInput", stringInEditTextField)
-
-        recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val restaurantMenuAdapter = RestaurantMenuAdapter({})
-
+        val restaurantMenuAdapter = RestaurantMenuAdapter({
+//            val action = RestaurantMenuFragmentDirections
+//                .actionRestaurantMenuFragmentToCaloriesFragment()
+//            view.findNavController().navigate(action)
+        })
         recyclerView.adapter = restaurantMenuAdapter
+
         lifecycle.coroutineScope.launch {
-            viewModel.allDishesContainingString(stringInEditTextField,
+            menuViewModel.allDishesContainingString(stringInEditTextField,
                 1, 2).collect() {
                 restaurantMenuAdapter.submitList(it)
             }
         }
     }
 
-    private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
+    private fun handleEnterKeyEvent(view: View, keyCode: Int): Boolean {
         if (keyCode == KeyEvent.KEYCODE_ENTER) {
             // Hide the keyboard
             val inputMethodManager =

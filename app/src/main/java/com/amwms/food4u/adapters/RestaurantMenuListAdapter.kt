@@ -1,6 +1,5 @@
 package com.amwms.food4u.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -47,7 +46,6 @@ class RestaurantMenuAdapter(
     class RestaurantMenuViewHolder(
         private var binding: RestaurantMenuItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SimpleDateFormat")
         fun bind(dish: Dish) {
             binding.dishNameTextView.text = dish.name
         }

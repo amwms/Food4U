@@ -26,8 +26,6 @@ interface Food4UDao {
             "ORDER BY id ASC")
     fun getDishesContaining(pattern: String, countryId: Int, restaurantId: Int): Flow<List<Dish>>
 
-    @Query("SELECT * FROM calories " +
-            "WHERE menuitem_id " +
-            "IN (SELECT dish_id FROM menuitem WHERE :dishId = dish_id)")
+    @Query("SELECT * FROM calories WHERE menuitem_id IN (SELECT id FROM menuitem WHERE :dishId = dish_id)")
     fun getDishIdCalories(dishId: Int): Flow<List<Calories>>
 }

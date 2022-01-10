@@ -20,7 +20,8 @@ class CaloriesFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private val sharedViewModel: CoordinateViewModel by activityViewModels()
-    private var dishId : Int = 0;
+//    private var dishId : Int = 0;
+    private lateinit var dishId : String
 
     private val caloriesViewModel: CaloriesViewModel by activityViewModels {
         CaloriesViewModelFactory(
@@ -32,7 +33,7 @@ class CaloriesFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            dishId = it.getString("dish_id")!!.toInt()
+            dishId = it.getString("dishId").toString()
         }
     }
 
@@ -55,7 +56,7 @@ class CaloriesFragment : Fragment() {
         recyclerView.adapter = caloriesAdapter
 
         lifecycle.coroutineScope.launch {
-            caloriesViewModel.allDishIdCalories(dishId).collect() {
+            caloriesViewModel.allDishIdCalories(dishId.toInt()).collect() {
                 caloriesAdapter.submitList(it)
             }
         }

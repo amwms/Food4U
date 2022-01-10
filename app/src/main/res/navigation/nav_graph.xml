@@ -51,5 +51,9 @@
         android:id="@+id/caloriesFragment"
         android:name="com.amwms.food4u.fragments.CaloriesFragment"
         android:label="fragment_calories"
-        tools:layout="@layout/fragment_calories" />
+        tools:layout="@layout/fragment_calories" >
+        <argument
+            android:name="dishId"
+            app:argType="string" />
+    </fragment>
 </navigation>

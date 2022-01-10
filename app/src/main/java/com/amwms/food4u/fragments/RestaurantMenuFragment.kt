@@ -66,11 +66,13 @@ class RestaurantMenuFragment : Fragment() {
             return
         }
 
-        val stringInEditTextField = binding.dishNameFieldEditText.text.toString();
+        val stringInEditTextField = binding.dishNameFieldEditText.text.toString()
         val restaurantMenuAdapter = RestaurantMenuAdapter({
-//            val action = RestaurantMenuFragmentDirections
-//                .actionRestaurantMenuFragmentToCaloriesFragment()
-//            view.findNavController().navigate(action)
+            val action = RestaurantMenuFragmentDirections
+                .actionRestaurantMenuFragmentToCaloriesFragment(
+                      dishId = it.id.toString()
+                        )
+            view?.findNavController()?.navigate(action)
         })
         recyclerView.adapter = restaurantMenuAdapter
 

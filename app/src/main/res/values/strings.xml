@@ -12,4 +12,8 @@
     <string name="poland">Poland</string>
     <string name="submit">Submit</string>
     <string name="dish_name_label">Dish name</string>
+    <string name="select_allergens">Select Allergens</string>
+    <string name="maximum_calories_label">Maximum calories (default: infinity)</string>
+    <string name="minimum_calories_label">Minimum calories (default: 0)</string>
+    <string name="search_menu">Search Menu</string>
 </resources>

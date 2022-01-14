@@ -22,6 +22,7 @@ class CaloriesFragment : Fragment() {
     private val sharedViewModel: CoordinateViewModel by activityViewModels()
 //    private var dishId : Int = 0;
     private lateinit var dishId : String
+    private lateinit var dishName : String
 
     private val caloriesViewModel: CaloriesViewModel by activityViewModels {
         CaloriesViewModelFactory(
@@ -34,6 +35,7 @@ class CaloriesFragment : Fragment() {
 
         arguments?.let {
             dishId = it.getString("dishId").toString()
+            dishName = it.getString("dishName").toString()
         }
     }
 
@@ -49,6 +51,10 @@ class CaloriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // set header to dish name
+        binding.caloriesMenuItemHeader.text = dishName
+
+        // give calories of dish
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val caloriesAdapter = CaloriesAdapter({})

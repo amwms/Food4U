@@ -70,8 +70,9 @@ class RestaurantMenuFragment : Fragment() {
         val restaurantMenuAdapter = RestaurantMenuAdapter({
             val action = RestaurantMenuFragmentDirections
                 .actionRestaurantMenuFragmentToCaloriesFragment(
-                      dishId = it.id.toString()
-                        )
+                    dishId = it.id.toString(),
+                    dishName = it.name.toString()
+                )
             view?.findNavController()?.navigate(action)
         })
         recyclerView.adapter = restaurantMenuAdapter

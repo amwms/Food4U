@@ -1,14 +1,18 @@
 package com.amwms.food4u.fragments
 
 import android.content.Context
+import android.content.DialogInterface
+import android.content.DialogInterface.OnMultiChoiceClickListener
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,13 +21,21 @@ import com.amwms.food4u.databinding.FragmentSearchMenuBinding
 import com.amwms.food4u.adapters.RestaurantMenuAdapter
 import com.amwms.food4u.viewmodels.CoordinateViewModel
 import com.amwms.food4u.viewmodels.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.lang.StringBuilder
 
 class SearchMenuFragment : Fragment() {
 
     private var maximumCaloriesBound: Int = Int.MAX_VALUE
     private var minimumCaloriesBound: Int = 0
+    private var numberOfAllergens: Int = 2
+
+    private lateinit var selectedAllergens: BooleanArray
+    private var chosenAllergenIdList: ArrayList<Int> = ArrayList()
+    private var chosenAllergenList: ArrayList<String> = ArrayList()
+    private lateinit var allergenArray: Array<String>
 
     private var _binding: FragmentSearchMenuBinding? = null
     private val binding get() = _binding!!
@@ -48,6 +60,22 @@ class SearchMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        lifecycleScope.launch(Dispatchers.IO) {
+            val _numberOfAllergens = menuViewModel.getNumberOfAllergens()
+            Log.d("searchMenuFragment", _numberOfAllergens.toString())
+            val _allergenArray = menuViewModel.allAllergensNames()
+
+            this@SearchMenuFragment.activity?.runOnUiThread() {
+                numberOfAllergens = _numberOfAllergens
+                allergenArray = _allergenArray.toTypedArray()
+                selectedAllergens = BooleanArray(numberOfAllergens) { false }
+            }
+        }
+
+        binding.selectAllergensTextView.setOnClickListener(View.OnClickListener {
+            createAllergenChoiceAlertDialog(view)
+        })
+
         binding.searchMenuSubmitButton.setOnClickListener { getConstraintDishes() }
 
         binding.maximumCaloriesEditText.setOnKeyListener { view, keyCode, _ ->
@@ -68,14 +96,57 @@ class SearchMenuFragment : Fragment() {
         _binding = null
     }
 
+    private fun createAllergenChoiceAlertDialog(view: View?) {
+        val builder = AlertDialog.Builder(requireContext())
+            .setTitle("Select allergens you are allergic to")
+            .setCancelable(false)
+            .setMultiChoiceItems(allergenArray, selectedAllergens,
+                OnMultiChoiceClickListener { _, i: Int, b: Boolean ->
+                    if (b) { // is checkbox selected
+                        chosenAllergenList.add(allergenArray[i])
+                        chosenAllergenIdList.add(i)
+                        chosenAllergenIdList.sort()
+                    } else {
+                        chosenAllergenIdList.remove(i)
+                    }
+                } as OnMultiChoiceClickListener)
+            .setPositiveButton("OK") { _, _ ->
+                // create string to be displayed in the selectAllergensTextView
+                val stringBuilder = StringBuilder()
+                for (i in 0 until chosenAllergenIdList.size) {
+                    stringBuilder.append(allergenArray.get(chosenAllergenIdList.get(i)))
+
+                    if (i != chosenAllergenIdList.size - 1) { // adding comma between allergens
+                        stringBuilder.append(", ")
+                    }
+                }
+
+                binding.selectAllergensTextView.text = stringBuilder.toString()
+            }
+            .setNegativeButton("Cancel") { dialogInterface, _ -> dialogInterface.dismiss() }
+            .setNeutralButton("Clear All") { _, _ ->
+                // clear all lists
+                for (i in 0 until numberOfAllergens) {
+                    selectedAllergens[i] = false
+                    chosenAllergenIdList.clear()
+                    binding.selectAllergensTextView.text = ""
+                }
+            }
+            .show()
+    }
+
     private fun getMaximumCaloriesEditTextInput() {
         if (binding.maximumCaloriesEditText.text.toString() != "")
             maximumCaloriesBound = binding.maximumCaloriesEditText.text.toString().toInt()
+        else
+            maximumCaloriesBound = Int.MAX_VALUE
     }
 
     private fun getMinimumumCaloriesEditTextInput() {
         if (binding.minimumCaloriesEditText.text.toString() != "")
             minimumCaloriesBound = binding.minimumCaloriesEditText.text.toString().toInt()
+        else
+            minimumCaloriesBound = 0
     }
 
     private fun getConstraintDishes() {
@@ -98,8 +169,8 @@ class SearchMenuFragment : Fragment() {
         recyclerView.adapter = searchMenuAdapter
 
         lifecycle.coroutineScope.launch {
-            menuViewModel.allDishesWithConstraints(maximumCaloriesBound, minimumCaloriesBound,
-                1, 2).collect() {
+            menuViewModel.allDishesWithConstraints(chosenAllergenList.toList(),
+                maximumCaloriesBound, minimumCaloriesBound, 1, 2).collect() {
                 searchMenuAdapter.submitList(it)
             }
         }

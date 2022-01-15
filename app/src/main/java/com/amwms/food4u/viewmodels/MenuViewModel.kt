@@ -13,9 +13,12 @@ class MenuViewModel(private val food4uDao: Food4UDao): ViewModel() {
     fun allDishesContainingString(name: String, countryId: Int, restaurantId: Int): Flow<List<Dish>>
     = food4uDao.getDishesContaining("%$name%", countryId, restaurantId)
 
-    fun allDishesWithConstraints(maxCalories: Int, minCalories: Int, countryId: Int, restaurantId: Int): Flow<List<Dish>>
-            = food4uDao.getDishesWithConstraints(maxCalories, minCalories, countryId, restaurantId)
+    fun allDishesWithConstraints(allergenNames: List<String>, maxCalories: Int, minCalories: Int, countryId: Int, restaurantId: Int): Flow<List<Dish>>
+            = food4uDao.getDishesWithConstraints(allergenNames, maxCalories, minCalories, countryId, restaurantId)
 
+    fun getNumberOfAllergens(): Int = food4uDao.getNumberOfAllergens()
+
+    fun allAllergensNames(): List<String> = food4uDao.getAllAllergensNames()
 }
 
 class MenuViewModelFactory(

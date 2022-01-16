@@ -188,15 +188,15 @@ class SearchMenuFragment : Fragment() {
     }
 
     private fun noCountryOrRestaurant() : Boolean {
-        return sharedViewModel.country.value.equals("") /*|| sharedViewModel.restaurant.equals("")*/
+        return sharedViewModel.countryNotSet() || sharedViewModel.restaurantNotSet()
     }
 
     private fun toastNoCountryOrRestaurant() {
         val toast: Toast
 
-        if (sharedViewModel.country.value.equals("") && sharedViewModel.restaurant.value.equals(""))
+        if (sharedViewModel.countryNotSet() && sharedViewModel.restaurantNotSet())
             toast = Toast.makeText(activity, "Set country and restaurant", Toast.LENGTH_SHORT)
-        else if (sharedViewModel.country.value.equals(""))
+        else if (sharedViewModel.countryNotSet())
             toast = Toast.makeText(activity, "Set country", Toast.LENGTH_SHORT)
         else
             toast = Toast.makeText(activity, "Set restaurant", Toast.LENGTH_SHORT)

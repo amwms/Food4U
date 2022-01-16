@@ -16,4 +16,9 @@
     <string name="maximum_calories_label">Maximum calories (default: infinity)</string>
     <string name="minimum_calories_label">Minimum calories (default: 0)</string>
     <string name="search_menu">Search Menu</string>
+    <string name="chosen_country">Chosen country: </string>
+    <string name="chosen_restaurant">Chosen restaurant:</string>
+    <string name="chosen_country_fun">Chosen country: %s</string>
+    <string name="chosen_restaurant_fun">Chosen restaurant: %s</string>
+    <string name="cancel">Cancel</string>
 </resources>

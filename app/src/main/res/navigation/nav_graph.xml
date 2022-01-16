@@ -49,7 +49,12 @@
         tools:layout="@layout/fragment_country" >
         <action
             android:id="@+id/action_countryFragment_to_homeFragment"
-            app:destination="@id/homeFragment"/>
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_countryFragment_to_restaurantFragment"
+            app:destination="@id/restaurantFragment" />
     </fragment>
     <fragment
         android:id="@+id/caloriesFragment"
@@ -68,5 +73,16 @@
         <action
             android:id="@+id/action_caloriesFragment_to_searchMenuFragment"
             app:destination="@id/searchMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantFragment"
+        android:name="com.amwms.food4u.fragments.home.RestaurantFragment"
+        android:label="fragment_restaurant"
+        tools:layout="@layout/fragment_restaurant" >
+        <action
+            android:id="@+id/action_restaurantFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

@@ -1,43 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    tools:context=".fragments.home.CountryFragment">-->
+
+<!--    <data>-->
+<!--        <variable-->
+<!--            name="countryFragment"-->
+<!--            type="com.amwms.food4u.fragments.home.CountryFragment" />-->
+<!--        <variable-->
+<!--            name="viewModel"-->
+<!--            type="com.amwms.food4u.viewmodels.CoordinateViewModel" />-->
+<!--    </data>-->
+
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_gravity="top|center"-->
+<!--            android:text="@{viewModel.tempCountry.toString()}" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/poland_button_choice"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:onClick="@{() -> countryFragment.chooseCountry(@string/poland)}"-->
+<!--            android:text="@string/poland" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/submit_country_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="end|bottom"-->
+<!--            android:text="@string/submit"-->
+<!--            android:onClick="@{() -> countryFragment.submitCountryChoice()}"-->
+<!--            />-->
+
+<!--    </FrameLayout>-->
+<!--</layout>-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".fragments.home.CountryFragment">
 
-    <data>
-        <variable
-            name="countryFragment"
-            type="com.amwms.food4u.fragments.home.CountryFragment" />
-        <variable
-            name="viewModel"
-            type="com.amwms.food4u.viewmodels.CoordinateViewModel" />
-    </data>
+    <TextView
+        android:id="@+id/choose_country_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/chosen_country"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <FrameLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1"
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="top|center"
-            android:text="@{viewModel.tempCountry.toString()}" />
+        app:layout_constraintBottom_toTopOf="@id/submit_country_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/choose_country_header"
 
-        <Button
-            android:id="@+id/poland_button_choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="@{() -> countryFragment.chooseCountry(@string/poland)}"
-            android:text="@string/poland" />
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
-        <Button
-            android:id="@+id/submit_country_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:text="@string/submit"
-            android:onClick="@{() -> countryFragment.submitCountryChoice()}"
-            />
+    <Button
+        android:id="@+id/submit_country_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
 
-    </FrameLayout>
-</layout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view"
+        android:layout_margin="16dp" />
+
+    <Button
+        android:id="@+id/cancel_country_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view"
+        android:layout_margin="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

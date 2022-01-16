@@ -7,46 +7,45 @@ import androidx.lifecycle.ViewModel
 class CoordinateViewModel : ViewModel() {
 
     // Country to choose restaurants from
-    private val _country = MutableLiveData<String>()
-    val country: LiveData<String> = _country
+    private val _countryName = MutableLiveData<String>()
+    val countryName: LiveData<String> = _countryName
+    private val _countryId = MutableLiveData<Int>()
+    val countryId: LiveData<Int> = _countryId
 
     // Restaurant to search menu
-    private val _restaurant = MutableLiveData<String>()
-    val restaurant: LiveData<String> = _restaurant
-
-    // temporary country during setting country value
-    private val _tempCountry = MutableLiveData<String>()
-    val tempCountry: LiveData<String> = _tempCountry
-
-    // temporary restaurant during setting restaurant value
-    private val _tempRestaurant = MutableLiveData<String>()
-    val tempRestaurant: LiveData<String> = _tempRestaurant
-
+    private val _restaurantName = MutableLiveData<String>()
+    val restaurantName: LiveData<String> = _restaurantName
+    private val _restaurantId = MutableLiveData<Int>()
+    val restaurantId: LiveData<Int> = _restaurantId
 
     init {
         resetSettings()
     }
 
+    fun countryNotSet(): Boolean {
+        return countryName.value.equals("")
+    }
+
+    fun restaurantNotSet(): Boolean {
+        return restaurantName.value.equals("")
+    }
+
     private fun resetSettings() {
-        _country.value = ""
-        _restaurant.value = ""
+        _countryId.value = -1
+        _restaurantId.value = -1
+        _countryName.value = ""
+        _restaurantName.value = ""
     }
 
     // setters
-    fun setCountry(country: String) {
-        _country.value = country
+    fun setCountry(countryId: Int?, countryName: String) {
+        _countryId.value = countryId
+        _countryName.value = countryName
     }
 
-    fun setRestaurant(restaurant: String) {
-        _restaurant.value = restaurant
-    }
-
-    fun setTempCountry(country: String) {
-        _tempCountry.value = country
-    }
-
-    fun setTempRestaurant(restaurant: String) {
-        _tempRestaurant.value = restaurant
+    fun setRestaurant(restaurantId: Int?, restaurantName: String) {
+        _restaurantId.value = restaurantId
+        _restaurantName.value = restaurantName
     }
 
 }

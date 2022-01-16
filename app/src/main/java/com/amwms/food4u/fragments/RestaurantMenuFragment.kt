@@ -43,7 +43,10 @@ class RestaurantMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.dishNameSubmitButton.setOnClickListener { getDishNameEditTextInput() }
+        binding.dishNameSubmitButton.setOnClickListener {
+            handleEnterKeyEvent(view, KeyEvent.KEYCODE_ENTER)
+            getDishNameEditTextInput()
+        }
 
         binding.dishNameFieldEditText.setOnKeyListener { view, keyCode, _ ->
             handleEnterKeyEvent(view, keyCode)
@@ -78,8 +81,10 @@ class RestaurantMenuFragment : Fragment() {
         recyclerView.adapter = restaurantMenuAdapter
 
         lifecycle.coroutineScope.launch {
-            menuViewModel.allDishesContainingString(stringInEditTextField,
-                1, 2).collect() {
+            menuViewModel.allDishesContainingString(
+                stringInEditTextField,
+                sharedViewModel.countryId.value!!,
+                sharedViewModel.restaurantId.value!!).collect() {
                 restaurantMenuAdapter.submitList(it)
             }
         }

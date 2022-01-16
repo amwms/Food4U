@@ -76,7 +76,10 @@ class SearchMenuFragment : Fragment() {
             createAllergenChoiceAlertDialog(view)
         })
 
-        binding.searchMenuSubmitButton.setOnClickListener { getConstraintDishes() }
+        binding.searchMenuSubmitButton.setOnClickListener {
+            handleEnterKeyEvent(view, KeyEvent.KEYCODE_ENTER)
+            getConstraintDishes()
+        }
 
         binding.maximumCaloriesEditText.setOnKeyListener { view, keyCode, _ ->
             handleEnterKeyEvent(view, keyCode)
@@ -170,7 +173,10 @@ class SearchMenuFragment : Fragment() {
 
         lifecycle.coroutineScope.launch {
             menuViewModel.allDishesWithConstraints(chosenAllergenList.toList(),
-                maximumCaloriesBound, minimumCaloriesBound, 1, 2).collect() {
+                maximumCaloriesBound,
+                minimumCaloriesBound,
+                sharedViewModel.countryId.value!!,
+                sharedViewModel.restaurantId.value!!).collect() {
                 searchMenuAdapter.submitList(it)
             }
         }

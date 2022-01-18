@@ -21,4 +21,5 @@
     <string name="chosen_country_fun">Chosen country: %s</string>
     <string name="chosen_restaurant_fun">Chosen restaurant: %s</string>
     <string name="cancel">Cancel</string>
+    <string name="create_set">Create Set</string>
 </resources>

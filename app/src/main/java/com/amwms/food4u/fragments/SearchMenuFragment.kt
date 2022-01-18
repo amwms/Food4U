@@ -1,7 +1,6 @@
 package com.amwms.food4u.fragments
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.DialogInterface.OnMultiChoiceClickListener
 import android.os.Bundle
 import android.util.Log
@@ -30,7 +29,7 @@ class SearchMenuFragment : Fragment() {
 
     private var maximumCaloriesBound: Int = Int.MAX_VALUE
     private var minimumCaloriesBound: Int = 0
-    private var numberOfAllergens: Int = 2
+    private var numberOfAllergens: Int = 0
 
     private lateinit var selectedAllergens: BooleanArray
     private var chosenAllergenIdList: ArrayList<Int> = ArrayList()
@@ -145,7 +144,7 @@ class SearchMenuFragment : Fragment() {
             maximumCaloriesBound = Int.MAX_VALUE
     }
 
-    private fun getMinimumumCaloriesEditTextInput() {
+    private fun getMinimumCaloriesEditTextInput() {
         if (binding.minimumCaloriesEditText.text.toString() != "")
             minimumCaloriesBound = binding.minimumCaloriesEditText.text.toString().toInt()
         else
@@ -159,7 +158,7 @@ class SearchMenuFragment : Fragment() {
         }
 
         getMaximumCaloriesEditTextInput()
-        getMinimumumCaloriesEditTextInput()
+        getMinimumCaloriesEditTextInput()
 
         val searchMenuAdapter = RestaurantMenuAdapter({
             val action = SearchMenuFragmentDirections

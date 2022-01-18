@@ -36,7 +36,11 @@
         android:id="@+id/createSetFragment"
         android:name="com.amwms.food4u.fragments.CreateSetFragment"
         android:label="fragment_create_set"
-        tools:layout="@layout/fragment_create_set" />
+        tools:layout="@layout/fragment_create_set" >
+        <action
+            android:id="@+id/action_createSetFragment_to_saveSetFragment"
+            app:destination="@id/saveSetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.amwms.food4u.fragments.FavoritesFragment"
@@ -85,4 +89,9 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true"/>
     </fragment>
+    <fragment
+        android:id="@+id/saveSetFragment"
+        android:name="com.amwms.food4u.fragments.SaveSetFragment"
+        android:label="SaveSetFragment" />
+
 </navigation>

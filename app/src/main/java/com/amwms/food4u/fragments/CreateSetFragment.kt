@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amwms.food4u.Food4UApplication
@@ -164,7 +165,13 @@ class CreateSetFragment : Fragment() {
         getMaximumCaloriesEditTextInput()
         getMinimumumCaloriesEditTextInput()
 
-        val setAdapter = SetAdapter({})
+        val setAdapter = SetAdapter({
+            saveDataToSetViewModel(it.second, it.first)
+
+            val action = CreateSetFragmentDirections
+                .actionCreateSetFragmentToSaveSetFragment()
+            view?.findNavController()?.navigate(action)
+        })
         recyclerView.adapter = setAdapter
 
         val maxSetCount = 5
@@ -193,6 +200,11 @@ class CreateSetFragment : Fragment() {
                 setAdapter.submitList(result.toList())
             }
         }
+    }
+
+    private fun saveDataToSetViewModel(dishList: List<Dish>, calories: Int) {
+        createSetViewModel.setDishSetList(dishList)
+        createSetViewModel.setCalorieCount(calories)
     }
 
     private fun createDishSets(allergenNames: List<String>, maxCalories: Int, minCalories: Int,

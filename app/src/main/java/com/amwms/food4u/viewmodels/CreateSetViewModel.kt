@@ -1,5 +1,7 @@
 package com.amwms.food4u.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.amwms.food4u.database.Food4UDao
@@ -15,6 +17,14 @@ class CreateSetViewModel(private val food4uDao: Food4UDao): ViewModel() {
     // functions
     private var setCount: Int = 0
 
+    // current chosen dish set list
+    private val _dishSetList = MutableLiveData<List<Dish>>()
+    val dishSetList: LiveData<List<Dish>> = _dishSetList
+
+    // calories of current chosen set
+    private val _caloriesInSet = MutableLiveData<Int>()
+    val caloriesInSet: LiveData<Int> = _caloriesInSet
+
     init {
         resetSettings()
     }
@@ -22,6 +32,17 @@ class CreateSetViewModel(private val food4uDao: Food4UDao): ViewModel() {
     private fun resetSettings() {
         setCount = 0
     }
+
+    // setters
+    fun setDishSetList(dishList: List<Dish>) {
+        _dishSetList.value = dishList
+    }
+
+    fun setCalorieCount(calorieCount: Int) {
+        _caloriesInSet.value = calorieCount
+    }
+
+
 
 //    fun createDishSets(allergenNames: List<String>, maxCalories: Int, minCalories: Int,
 //                       countryId: Int, restaurantId: Int,

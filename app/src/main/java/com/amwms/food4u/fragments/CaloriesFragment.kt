@@ -20,7 +20,6 @@ class CaloriesFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private val sharedViewModel: CoordinateViewModel by activityViewModels()
-//    private var dishId : Int = 0;
     private lateinit var dishId : String
     private lateinit var dishName : String
 

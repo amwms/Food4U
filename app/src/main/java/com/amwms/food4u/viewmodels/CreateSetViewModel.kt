@@ -22,6 +22,8 @@ class CreateSetViewModel(private val food4uDao: Food4UDao): ViewModel() {
 
     fun numberOfSets(): Int = food4uDao.getSetCount()
 
+    fun dishExists(dishId: Int): Int = food4uDao.getDishIdExists(dishId)
+
     // functions
     private var setCount: Int = 0
 

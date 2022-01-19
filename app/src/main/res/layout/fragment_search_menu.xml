@@ -53,8 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:padding="11dp"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:maxLength="9" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,8 +77,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:padding="11dp"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:maxLength="9" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

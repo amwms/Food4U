@@ -1,6 +1,8 @@
 package com.amwms.food4u.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.provider.Settings
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -24,11 +26,18 @@ class FavoritesFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private val sharedViewModel: CoordinateViewModel by activityViewModels()
+    private lateinit var userId: String
 
     private val favoritesViewModel: FavoritesViewModel by activityViewModels {
         FavoritesViewModelFactory(
             (activity?.application as Food4UApplication).database.food4uDao()
         )
+    }
+
+    @SuppressLint("HardwareIds")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        userId = Settings.Secure.getString(getContext()?.getContentResolver(), Settings.Secure.ANDROID_ID)
     }
 
     override fun onCreateView(
@@ -58,7 +67,7 @@ class FavoritesFragment : Fragment() {
         recyclerView.adapter = setAdapter
 
         lifecycle.coroutineScope.launch {
-            favoritesViewModel.allFavoriteSets().collect {
+            favoritesViewModel.allFavoriteSets(userId).collect {
                 setAdapter.submitList(it)
             }
         }

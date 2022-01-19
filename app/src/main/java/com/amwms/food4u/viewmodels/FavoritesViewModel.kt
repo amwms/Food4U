@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 class FavoritesViewModel(private val food4uDao: Food4UDao): ViewModel() {
 
-    fun allFavoriteSets(): Flow<List<FavoriteSet>> = food4uDao.getAllFavoriteSets()
+    fun allFavoriteSets(userId: String): Flow<List<FavoriteSet>> = food4uDao.getAllFavoriteSets(userId)
 
     fun allDishesInSet(setId: Int): Flow<List<Dish>> = food4uDao.getAllDishesInSet(setId)
 

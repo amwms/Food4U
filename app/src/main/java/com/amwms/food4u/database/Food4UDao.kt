@@ -68,9 +68,12 @@ interface Food4UDao {
     @Query("SELECT COUNT(id) FROM favoriteset")
     fun getSetCount(): Int
 
-    @Query("SELECT * FROM favoriteset")
-    fun getAllFavoriteSets(): Flow<List<FavoriteSet>>
+    @Query("SELECT * FROM favoriteset WHERE user_id = :userId")
+    fun getAllFavoriteSets(userId: String): Flow<List<FavoriteSet>>
 
     @Query("SELECT * FROM dish WHERE id IN (SELECT dish_id FROM dishset WHERE set_id = :setId GROUP BY dish_id)")
     fun getAllDishesInSet(setId: Int): Flow<List<Dish>>
+
+    @Query("SELECT COUNT(*) FROM dish WHERE id = :dishId")
+    fun getDishIdExists(dishId: Int): Int
 }

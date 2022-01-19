@@ -65,6 +65,12 @@ interface Food4UDao {
     @Insert(entity = FavoriteSet::class)
     fun insertNewSet(set: FavoriteSet)
 
-    @Query("SELECT COUNT(*) FROM favoriteset GROUP BY id")
+    @Query("SELECT COUNT(id) FROM favoriteset")
     fun getSetCount(): Int
+
+    @Query("SELECT * FROM favoriteset")
+    fun getAllFavoriteSets(): Flow<List<FavoriteSet>>
+
+    @Query("SELECT * FROM dish WHERE id IN (SELECT dish_id FROM dishset WHERE set_id = :setId GROUP BY dish_id)")
+    fun getAllDishesInSet(setId: Int): Flow<List<Dish>>
 }

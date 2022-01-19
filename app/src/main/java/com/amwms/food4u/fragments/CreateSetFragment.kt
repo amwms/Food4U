@@ -66,7 +66,6 @@ class CreateSetFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             val _numberOfAllergens = menuViewModel.getNumberOfAllergens()
-            Log.d("searchMenuFragment", _numberOfAllergens.toString())
             val _allergenArray = menuViewModel.allAllergensNames()
 
             this@CreateSetFragment.activity?.runOnUiThread() {

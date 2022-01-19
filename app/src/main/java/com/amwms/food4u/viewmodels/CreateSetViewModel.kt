@@ -20,7 +20,7 @@ class CreateSetViewModel(private val food4uDao: Food4UDao): ViewModel() {
 
     fun addNewSet(set: FavoriteSet) = food4uDao.insertNewSet(set)
 
-    fun numberOfSets() = food4uDao.getSetCount()
+    fun numberOfSets(): Int = food4uDao.getSetCount()
 
     // functions
     private var setCount: Int = 0

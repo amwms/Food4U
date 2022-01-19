@@ -6,24 +6,26 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amwms.food4u.Food4UApplication
 import com.amwms.food4u.adapters.FavoriteSetAdapter
-import com.amwms.food4u.databinding.FragmentFavoritesBinding
+import com.amwms.food4u.adapters.RestaurantMenuAdapter
+import com.amwms.food4u.databinding.FragmentSetBinding
 import com.amwms.food4u.viewmodels.CoordinateViewModel
 import com.amwms.food4u.viewmodels.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
 
-class FavoritesFragment : Fragment() {
+class SetFragment : Fragment() {
 
-    private var _binding: FragmentFavoritesBinding? = null
+    private var _binding: FragmentSetBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
     private val sharedViewModel: CoordinateViewModel by activityViewModels()
+    private lateinit var setId : String
+    private lateinit var setName : String
 
     private val favoritesViewModel: FavoritesViewModel by activityViewModels {
         FavoritesViewModelFactory(
@@ -31,11 +33,20 @@ class FavoritesFragment : Fragment() {
         )
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            setId = it.getString("setId").toString()
+            setName = it.getString("setName").toString()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        _binding = FragmentSetBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -43,23 +54,25 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.setHeader.text = setName
+
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val setAdapter = FavoriteSetAdapter({
-            val action = FavoritesFragmentDirections
-                .actionFavoritesFragmentToSetFragment(
-                    setId = it.id.toString(),
-                    setName = it.setName
+        val dishesInSetAdapter = RestaurantMenuAdapter({
+            val action = SetFragmentDirections
+                .actionSetFragmentToCaloriesFragment(
+                    dishId = it.id.toString(),
+                    dishName = it.name
                 )
             view.findNavController().navigate(action)
         })
 
-        recyclerView.adapter = setAdapter
+        recyclerView.adapter = dishesInSetAdapter
 
         lifecycle.coroutineScope.launch {
-            favoritesViewModel.allFavoriteSets().collect {
-                setAdapter.submitList(it)
+            favoritesViewModel.allDishesInSet(setId.toInt()).collect {
+                dishesInSetAdapter.submitList(it)
             }
         }
     }

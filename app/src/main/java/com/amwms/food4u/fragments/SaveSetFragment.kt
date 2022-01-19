@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amwms.food4u.Food4UApplication
@@ -70,6 +72,7 @@ class SaveSetFragment : Fragment() {
         binding.saveSetButton.setOnClickListener {
             handleEnterKeyEvent(view, KeyEvent.KEYCODE_ENTER)
             saveSet()
+//            navigateToFavorites()
         }
 
         binding.setNameEditText.setOnKeyListener { view, keyCode, _ ->
@@ -98,6 +101,7 @@ class SaveSetFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             val newSetId = createSetViewModel.numberOfSets() + 1
+            Log.d("saveSet", newSetId.toString())
             val newSet = FavoriteSet(newSetId, userId, setName, calorieCount.toInt())
 
             createSetViewModel.addNewSet(newSet)
@@ -126,6 +130,11 @@ class SaveSetFragment : Fragment() {
         val toast = Toast.makeText(activity, "Set added", Toast.LENGTH_SHORT)
         toast.setGravity(Gravity.CENTER, 0 , 0)
         toast.show()
+    }
+
+    private fun navigateToFavorites() {
+        val action = SaveSetFragmentDirections.actionSaveSetFragmentToFavoritesFragment()
+        view?.findNavController()?.navigate(action)
     }
 
     private fun handleEnterKeyEvent(view: View, keyCode: Int): Boolean {

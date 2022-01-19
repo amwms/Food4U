@@ -45,7 +45,11 @@
         android:id="@+id/favoritesFragment"
         android:name="com.amwms.food4u.fragments.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_setFragment"
+            app:destination="@id/setFragment" />
+    </fragment>
     <fragment
         android:id="@+id/countryFragment"
         android:name="com.amwms.food4u.fragments.home.CountryFragment"
@@ -92,6 +96,28 @@
     <fragment
         android:id="@+id/saveSetFragment"
         android:name="com.amwms.food4u.fragments.SaveSetFragment"
-        android:label="SaveSetFragment" />
+        android:label="SaveSetFragment" >
+        <action
+            android:id="@+id/action_saveSetFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setFragment"
+        android:name="com.amwms.food4u.fragments.SetFragment"
+        android:label="fragment_set"
+        tools:layout="@layout/fragment_set" >
+        <argument
+            android:name="setId"
+            app:argType="string" />
+        <argument
+            android:name="setName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_setFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+        <action
+            android:id="@+id/action_setFragment_to_caloriesFragment"
+            app:destination="@id/caloriesFragment" />
+    </fragment>
 
 </navigation>

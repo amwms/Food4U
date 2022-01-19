@@ -72,7 +72,6 @@ class SaveSetFragment : Fragment() {
         binding.saveSetButton.setOnClickListener {
             handleEnterKeyEvent(view, KeyEvent.KEYCODE_ENTER)
             saveSet()
-            navigateToFavorites()
         }
 
         binding.setNameEditText.setOnKeyListener { view, keyCode, _ ->
@@ -112,7 +111,8 @@ class SaveSetFragment : Fragment() {
             }
 
             this@SaveSetFragment.activity?.runOnUiThread() {
-               toastSetAdded()
+                toastSetAdded()
+                navigateToFavorites()
             }
         }
     }

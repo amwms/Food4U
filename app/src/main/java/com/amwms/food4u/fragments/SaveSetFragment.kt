@@ -72,7 +72,7 @@ class SaveSetFragment : Fragment() {
         binding.saveSetButton.setOnClickListener {
             handleEnterKeyEvent(view, KeyEvent.KEYCODE_ENTER)
             saveSet()
-//            navigateToFavorites()
+            navigateToFavorites()
         }
 
         binding.setNameEditText.setOnKeyListener { view, keyCode, _ ->

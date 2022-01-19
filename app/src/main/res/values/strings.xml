@@ -23,4 +23,6 @@
     <string name="cancel">Cancel</string>
     <string name="create_set">Create Set</string>
     <string name="set">Set</string>
+    <string name="set_name">Set name</string>
+    <string name="save">Save</string>
 </resources>

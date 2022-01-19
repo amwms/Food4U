@@ -14,7 +14,9 @@ import com.amwms.food4u.database.entities.*
         Dish::class,
         MenuItem::class,
         MenuItemAllergens::class,
-        Restaurant::class),
+        Restaurant::class,
+        DishSet::class,
+        FavoriteSet::class),
     version = 1)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun food4uDao(): Food4UDao

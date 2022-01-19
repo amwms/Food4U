@@ -2,6 +2,7 @@ package com.amwms.food4u.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import com.amwms.food4u.database.entities.*
 import kotlinx.coroutines.flow.Flow
@@ -57,4 +58,13 @@ interface Food4UDao {
 
     @Query("SELECT c.energy_kcal FROM (SELECT * FROM dish WHERE id = :dishId) as d LEFT JOIN menuitem i ON d.id = i.dish_id LEFT JOIN calories c ON i.id = c.menuitem_id GROUP BY d.id")
     fun getDishIdEnergy(dishId: Int): Int
+
+    @Insert(entity = DishSet::class)
+    fun insertDishIntoSet(dishSet: DishSet)
+
+    @Insert(entity = FavoriteSet::class)
+    fun insertNewSet(set: FavoriteSet)
+
+    @Query("SELECT COUNT(*) FROM favoriteset GROUP BY id")
+    fun getSetCount(): Int
 }

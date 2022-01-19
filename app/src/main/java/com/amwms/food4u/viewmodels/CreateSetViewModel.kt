@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.amwms.food4u.database.Food4UDao
 import com.amwms.food4u.database.entities.Dish
+import com.amwms.food4u.database.entities.DishSet
+import com.amwms.food4u.database.entities.FavoriteSet
 
 class CreateSetViewModel(private val food4uDao: Food4UDao): ViewModel() {
     // database functions
@@ -13,6 +15,12 @@ class CreateSetViewModel(private val food4uDao: Food4UDao): ViewModel() {
             = food4uDao.getDishesWithConstraintsList(allergenNames, maxCalories, minCalories, countryId, restaurantId)
 
     fun dishCalories(dishId: Int): Int = food4uDao.getDishIdEnergy(dishId)
+
+    fun addNewDishToSet(data: DishSet) = food4uDao.insertDishIntoSet(data)
+
+    fun addNewSet(set: FavoriteSet) = food4uDao.insertNewSet(set)
+
+    fun numberOfSets() = food4uDao.getSetCount()
 
     // functions
     private var setCount: Int = 0

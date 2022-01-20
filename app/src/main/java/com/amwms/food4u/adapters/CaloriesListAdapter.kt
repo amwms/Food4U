@@ -46,11 +46,37 @@ class CaloriesAdapter(
     class CaloriesViewHolder(
         private var binding: CaloriesItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
-        val calorieTypes = listOf("energy_kj", "energy_kcal", "fat_g", "saturated_fat_g" , "carbohydrates_g", "sugar_g", "protein_g", "salt_g")
+        val calorieTypes = listOf(
+            "energy (kcal)  ",
+            "fat (g)  ",
+            "saturated fat (g)  " ,
+            "carbohydrates (g)  ",
+            "sugar (g)  ",
+            "protein (g)  ",
+            "salt (g)  "
+        )
 
         fun bind(data: Calories) {
-            binding.caloriesTypeTextView.text = "energy (kcal)"
+            binding.caloriesTypeTextView.text = calorieTypes[0]
             binding.caloriesCountTextView.text = data.energy_kcal.toString()
+
+            binding.fatTypeTextView.text = calorieTypes[1]
+            binding.fatCountTextView.text = data.fat_g.toString()
+
+            binding.saturatedFatTypeTextView.text = calorieTypes[2]
+            binding.saturatedFatCountTextView.text = data.saturatedFat_g.toString()
+
+            binding.carbohydratesTypeTextView.text = calorieTypes[3]
+            binding.carbohydratesCountTextView.text = data.carbohydrates_g.toString()
+
+            binding.sugarTypeTextView.text = calorieTypes[4]
+            binding.sugarCountTextView.text = data.sugar_g.toString()
+
+            binding.proteinTypeTextView.text = calorieTypes[5]
+            binding.proteinCountTextView.text = data.protein_g.toString()
+
+            binding.saltTypeTextView.text = calorieTypes[6]
+            binding.saltCountTextView.text = data.salt_g.toString()
         }
     }
 }

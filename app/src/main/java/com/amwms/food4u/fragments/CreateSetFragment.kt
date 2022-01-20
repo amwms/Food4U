@@ -177,7 +177,7 @@ class CreateSetFragment : Fragment() {
         getMaximumSetSizeFromSlider()
 
         val setAdapter = SetAdapter({
-            saveDataToSetViewModel(it.second, it.first)
+            saveDataToSetViewModel(it.second.second, it.second.first)
 
             val action = CreateSetFragmentDirections
                 .actionCreateSetFragmentToSaveSetFragment()
@@ -187,7 +187,7 @@ class CreateSetFragment : Fragment() {
 
         val maxCalories = maximumCaloriesBound
         var convertedDishes: List<Pair<Dish, Int>>
-        val result = ArrayList<Pair<Int, List<Dish>>>()
+        val result = ArrayList<Pair<Int, Pair<Int, List<Dish>>>>()
 
         lifecycleScope.launch(Dispatchers.IO) {
             val _dishes = createSetViewModel.allMenuItemsWithConstraints(chosenAllergenList.toList(),
@@ -201,7 +201,9 @@ class CreateSetFragment : Fragment() {
                 convertedDishes = _convertedDishes
 
                 for (i in 0 until maxSetCount) {
-                    result.add(createDishSet(convertedDishes, maxSetSize, maxCalories))
+                    result.add(
+                        Pair(maxCalories, createDishSet(convertedDishes, maxSetSize, maxCalories))
+                    )
                 }
 
                 setAdapter.submitList(result.toList())

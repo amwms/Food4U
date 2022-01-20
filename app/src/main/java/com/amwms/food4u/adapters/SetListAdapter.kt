@@ -10,18 +10,18 @@ import com.amwms.food4u.databinding.SetItemBinding
 import java.lang.StringBuilder
 
 class SetAdapter(
-    private val onItemClicked: (Pair<Int, List<Dish>>) -> Unit
-) : ListAdapter<Pair<Int, List<Dish>>, SetAdapter.SetViewHolder>(DiffCallback) {
+    private val onItemClicked: (Pair<Int, Pair<Int, List<Dish>>>) -> Unit
+) : ListAdapter<Pair<Int, Pair<Int, List<Dish>>>, SetAdapter.SetViewHolder>(DiffCallback) {
 
     companion object {
-        private val DiffCallback = object : DiffUtil.ItemCallback<Pair<Int, List<Dish>>>() {
-            override fun areItemsTheSame(oldItem: Pair<Int, List<Dish>>,
-                                         newItem: Pair<Int, List<Dish>>): Boolean {
-                return oldItem.first == newItem.first
+        private val DiffCallback = object : DiffUtil.ItemCallback<Pair<Int, Pair<Int, List<Dish>>>>() {
+            override fun areItemsTheSame(oldItem: Pair<Int, Pair<Int, List<Dish>>>,
+                                         newItem: Pair<Int, Pair<Int, List<Dish>>>): Boolean {
+                return oldItem.second.first == newItem.second.first
             }
 
-            override fun areContentsTheSame(oldItem: Pair<Int, List<Dish>>,
-                                            newItem: Pair<Int, List<Dish>>): Boolean {
+            override fun areContentsTheSame(oldItem: Pair<Int, Pair<Int, List<Dish>>>,
+                                            newItem: Pair<Int, Pair<Int, List<Dish>>>): Boolean {
                 return oldItem == newItem
             }
         }
@@ -51,9 +51,12 @@ class SetAdapter(
         private var binding: SetItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: Pair<Int, List<Dish>>) {
-            binding.setTitle.text = "set     ${data.first} kcal"
-            binding.dishesIncludedTextView.text = castDishList(data.second)
+        fun bind(data: Pair<Int, Pair<Int, List<Dish>>>) {
+            binding.setTitle.text = "set     ${data.second.first} kcal"
+            binding.dishesIncludedTextView.text = castDishList(data.second.second)
+
+            binding.progressBar.max = data.first
+            binding.progressBar.progress = data.second.first
         }
 
         private fun castDishList(dishList: List<Dish>): String {

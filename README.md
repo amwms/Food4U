@@ -8,8 +8,13 @@
 3. Set environment variable `ANDROID_SDK_ROOT` to the path to the installed SDK tools.
 4. In the project directory run:
    
+* Powershell:
    ```
     ./gradlew.bat assembleDebug
+    ``` 
+* CMD:
+   ```
+    gradlew assembleDebug
     ``` 
 
 5. Install the app-debug.apk file on your phone.

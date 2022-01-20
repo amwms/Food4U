@@ -97,7 +97,7 @@ class SaveSetFragment : Fragment() {
             createSetViewModel.addNewSet(newSet)
 
             for (i in 0 until dishList.size) {
-                addEntry(newSetId, dishList[i].id)
+                createSetViewModel.addNewDishToSetEntry(newSetId, dishList[i].id)
             }
 
             this@SaveSetFragment.activity?.runOnUiThread() {
@@ -105,11 +105,6 @@ class SaveSetFragment : Fragment() {
                 navigateToFavorites()
             }
         }
-    }
-
-    private fun addEntry(newSetId: Int, dishId: Int) {
-        if (createSetViewModel.dishExists(dishId) > 0)
-            createSetViewModel.addNewDishToSet(DishSet(newSetId, dishId))
     }
 
     private fun noSetNameGiven(): Boolean {

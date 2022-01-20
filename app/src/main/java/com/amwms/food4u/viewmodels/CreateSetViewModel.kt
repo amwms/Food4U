@@ -16,13 +16,18 @@ class CreateSetViewModel(private val food4uDao: Food4UDao): ViewModel() {
 
     fun dishCalories(dishId: Int): Int = food4uDao.getDishIdEnergy(dishId)
 
-    fun addNewDishToSet(data: DishSet) = food4uDao.insertDishIntoSet(data)
+    private fun addNewDishToSet(data: DishSet) = food4uDao.insertDishIntoSet(data)
 
     fun addNewSet(set: FavoriteSet) = food4uDao.insertNewSet(set)
 
     fun numberOfSets(): Int = food4uDao.getSetCount()
 
-    fun dishExists(dishId: Int): Int = food4uDao.getDishIdExists(dishId)
+    private fun dishExists(dishId: Int): Int = food4uDao.getDishIdExists(dishId)
+
+    fun addNewDishToSetEntry(newSetId: Int, dishId: Int) {
+        if (dishExists(dishId) > 0)
+            addNewDishToSet(DishSet(newSetId, dishId))
+    }
 
     // fragment coordinating functions and variables
     private var setCount: Int = 0

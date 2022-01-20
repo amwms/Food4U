@@ -6,7 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.amwms.food4u.database.entities.*
 
-
 @Database(
     entities = arrayOf(Allergen::class,
         Calories::class,

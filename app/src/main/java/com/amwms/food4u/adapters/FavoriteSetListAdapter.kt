@@ -5,11 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.amwms.food4u.database.entities.Dish
 import com.amwms.food4u.database.entities.FavoriteSet
 import com.amwms.food4u.databinding.FavoriteSetItemBinding
-import com.amwms.food4u.databinding.SetItemBinding
-import java.lang.StringBuilder
 
 class FavoriteSetAdapter(
     private val onItemClicked: (FavoriteSet) -> Unit
@@ -39,6 +36,7 @@ class FavoriteSetAdapter(
             val position = viewHolder.adapterPosition
             onItemClicked(getItem(position))
         }
+
         return viewHolder
     }
 

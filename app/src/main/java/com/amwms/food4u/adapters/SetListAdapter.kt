@@ -15,11 +15,13 @@ class SetAdapter(
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Pair<Int, List<Dish>>>() {
-            override fun areItemsTheSame(oldItem: Pair<Int, List<Dish>>, newItem: Pair<Int, List<Dish>>): Boolean {
+            override fun areItemsTheSame(oldItem: Pair<Int, List<Dish>>,
+                                         newItem: Pair<Int, List<Dish>>): Boolean {
                 return oldItem.first == newItem.first
             }
 
-            override fun areContentsTheSame(oldItem: Pair<Int, List<Dish>>, newItem: Pair<Int, List<Dish>>): Boolean {
+            override fun areContentsTheSame(oldItem: Pair<Int, List<Dish>>,
+                                            newItem: Pair<Int, List<Dish>>): Boolean {
                 return oldItem == newItem
             }
         }
@@ -37,6 +39,7 @@ class SetAdapter(
             val position = viewHolder.adapterPosition
             onItemClicked(getItem(position))
         }
+
         return viewHolder
     }
 
@@ -47,6 +50,7 @@ class SetAdapter(
     class SetViewHolder(
         private var binding: SetItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
+
         fun bind(data: Pair<Int, List<Dish>>) {
             binding.setTitle.text = "set     ${data.first} kcal"
             binding.dishesIncludedTextView.text = castDishList(data.second)

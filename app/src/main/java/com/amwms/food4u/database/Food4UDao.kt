@@ -1,6 +1,5 @@
 package com.amwms.food4u.database
 
-import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query

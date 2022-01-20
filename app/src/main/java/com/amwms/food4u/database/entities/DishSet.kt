@@ -3,8 +3,6 @@ package com.amwms.food4u.database.entities
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.PrimaryKey
-
 
 @Entity (primaryKeys = ["set_id", "dish_id"])
 data class DishSet(

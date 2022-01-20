@@ -36,6 +36,7 @@ class RestaurantMenuAdapter(
             val position = viewHolder.adapterPosition
             onItemClicked(getItem(position))
         }
+
         return viewHolder
     }
 
@@ -46,6 +47,7 @@ class RestaurantMenuAdapter(
     class RestaurantMenuViewHolder(
         private var binding: RestaurantMenuItemBinding
     ): RecyclerView.ViewHolder(binding.root) {
+
         fun bind(dish: Dish) {
             binding.dishNameTextView.text = dish.name
         }

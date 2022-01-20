@@ -36,6 +36,7 @@ class RestaurantAdapter(
             val position = viewHolder.adapterPosition
             onItemClicked(getItem(position))
         }
+
         return viewHolder
     }
 

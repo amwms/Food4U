@@ -36,6 +36,7 @@ class CountryAdapter(
             val position = viewHolder.adapterPosition
             onItemClicked(getItem(position))
         }
+
         return viewHolder
     }
 

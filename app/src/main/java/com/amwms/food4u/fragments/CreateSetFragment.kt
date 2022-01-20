@@ -27,6 +27,7 @@ import java.lang.StringBuilder
 class CreateSetFragment : Fragment() {
 
     private var maxSetCount: Int = 5
+    private var maxSetSize: Int = 5
     private var maximumCaloriesBound: Int = Int.MAX_VALUE
     private var minimumCaloriesBound: Int = 0
     private var numberOfAllergens: Int = 0
@@ -160,6 +161,10 @@ class CreateSetFragment : Fragment() {
         maxSetCount = binding.setsNumberSlider.value.toInt()
     }
 
+    private fun getMaximumSetSizeFromSlider() {
+        maxSetSize = binding.setSizeSlider.value.toInt()
+    }
+
     private fun getDishSets() {
         if (noCountryOrRestaurant()) {
             toastNoCountryOrRestaurant()
@@ -169,6 +174,7 @@ class CreateSetFragment : Fragment() {
         getMaximumCaloriesEditTextInput()
         getMinimumCaloriesEditTextInput()
         getMaximumSetCountFromSlider()
+        getMaximumSetSizeFromSlider()
 
         val setAdapter = SetAdapter({
             saveDataToSetViewModel(it.second, it.first)
@@ -179,7 +185,6 @@ class CreateSetFragment : Fragment() {
         })
         recyclerView.adapter = setAdapter
 
-        val setSize = 5
         val maxCalories = maximumCaloriesBound
         var convertedDishes: List<Pair<Dish, Int>>
         val result = ArrayList<Pair<Int, List<Dish>>>()
@@ -196,7 +201,7 @@ class CreateSetFragment : Fragment() {
                 convertedDishes = _convertedDishes
 
                 for (i in 0 until maxSetCount) {
-                    result.add(createDishSet(convertedDishes, setSize, maxCalories))
+                    result.add(createDishSet(convertedDishes, maxSetSize, maxCalories))
                 }
 
                 setAdapter.submitList(result.toList())
@@ -218,8 +223,15 @@ class CreateSetFragment : Fragment() {
         val result = ArrayList<Pair<Int, List<Dish>>>()
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val _dishes = createSetViewModel.allMenuItemsWithConstraints(allergenNames, maxCalories, minCalories, countryId, restaurantId)
+            val _dishes = createSetViewModel.allMenuItemsWithConstraints(
+                allergenNames,
+                maxCalories,
+                minCalories,
+                countryId,
+                restaurantId
+            )
             Log.d("create  set view model", "done")
+
             val _convertedDishes = convertToDishesList(_dishes)
             Log.d("create  set view model2", "done: $_convertedDishes")
 
@@ -255,18 +267,19 @@ class CreateSetFragment : Fragment() {
 
         val calorieCountId = shuffledList[0].second
         calCount += calorieCountId
+        dishCount++
         set.add(shuffledList[0].first)
 
         for (j in 1 until (shuffledList.size - setSize)) {
+            if (dishCount >= setSize) {
+                break
+            }
+
             if (shuffledList[j].second + calCount < maxCalories) {
                 set.add(shuffledList[j].first)
 
                 calCount += shuffledList[j].second
                 dishCount++
-            }
-
-            if (dishCount == setSize) {
-                break
             }
         }
 

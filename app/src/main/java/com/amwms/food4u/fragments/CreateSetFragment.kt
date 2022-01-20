@@ -26,6 +26,7 @@ import java.lang.StringBuilder
 
 class CreateSetFragment : Fragment() {
 
+    private var maxSetCount: Int = 5
     private var maximumCaloriesBound: Int = Int.MAX_VALUE
     private var minimumCaloriesBound: Int = 0
     private var numberOfAllergens: Int = 0
@@ -148,11 +149,15 @@ class CreateSetFragment : Fragment() {
             maximumCaloriesBound = Int.MAX_VALUE
     }
 
-    private fun getMinimumumCaloriesEditTextInput() {
+    private fun getMinimumCaloriesEditTextInput() {
         if (binding.minimumCaloriesEditText.text.toString() != "")
             minimumCaloriesBound = binding.minimumCaloriesEditText.text.toString().toInt()
         else
             minimumCaloriesBound = 0
+    }
+
+    private fun getMaximumSetCountFromSlider() {
+        maxSetCount = binding.setsNumberSlider.value.toInt()
     }
 
     private fun getDishSets() {
@@ -162,7 +167,8 @@ class CreateSetFragment : Fragment() {
         }
 
         getMaximumCaloriesEditTextInput()
-        getMinimumumCaloriesEditTextInput()
+        getMinimumCaloriesEditTextInput()
+        getMaximumSetCountFromSlider()
 
         val setAdapter = SetAdapter({
             saveDataToSetViewModel(it.second, it.first)
@@ -173,7 +179,6 @@ class CreateSetFragment : Fragment() {
         })
         recyclerView.adapter = setAdapter
 
-        val maxSetCount = 5
         val setSize = 5
         val maxCalories = maximumCaloriesBound
         var dishes: List<Dish>

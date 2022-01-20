@@ -33,17 +33,8 @@ class SaveSetFragment : Fragment() {
     private lateinit var dishList: List<Dish>
     private lateinit var calorieCount: String
 
-
-    private val sharedViewModel: CoordinateViewModel by activityViewModels()
-
     private val createSetViewModel: CreateSetViewModel by activityViewModels {
         CreateSetViewModelFactory(
-            (activity?.application as Food4UApplication).database.food4uDao()
-        )
-    }
-
-    private val menuViewModel: MenuViewModel by activityViewModels {
-        MenuViewModelFactory(
             (activity?.application as Food4UApplication).database.food4uDao()
         )
     }
@@ -107,7 +98,6 @@ class SaveSetFragment : Fragment() {
 
             for (i in 0 until dishList.size) {
                 addEntry(newSetId, dishList[i].id)
-//                createSetViewModel.addNewDishToSet(DishSet(newSetId, dishList[i].id))
             }
 
             this@SaveSetFragment.activity?.runOnUiThread() {

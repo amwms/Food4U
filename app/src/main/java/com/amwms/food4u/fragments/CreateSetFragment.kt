@@ -181,7 +181,6 @@ class CreateSetFragment : Fragment() {
 
         val setSize = 5
         val maxCalories = maximumCaloriesBound
-        var dishes: List<Dish>
         var convertedDishes: List<Pair<Dish, Int>>
         val result = ArrayList<Pair<Int, List<Dish>>>()
 
@@ -194,7 +193,6 @@ class CreateSetFragment : Fragment() {
             val _convertedDishes = convertToDishesList(_dishes)
 
             this@CreateSetFragment.activity?.runOnUiThread() {
-                dishes = _dishes
                 convertedDishes = _convertedDishes
 
                 for (i in 0 until maxSetCount) {

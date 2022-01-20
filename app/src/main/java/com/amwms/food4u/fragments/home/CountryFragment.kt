@@ -23,29 +23,6 @@ import kotlinx.coroutines.launch
 
 
 class CountryFragment : Fragment() {
-
-//    private var binding: FragmentCountryBinding? = null
-//    private val sharedViewModel: CoordinateViewModel by activityViewModels()
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//
-//        val fragmentBinding = FragmentCountryBinding.inflate(inflater, container, false)
-//        binding = fragmentBinding
-//        return fragmentBinding.root
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        binding?.apply {
-//            lifecycleOwner = viewLifecycleOwner
-//            viewModel = sharedViewModel
-//            countryFragment = this@CountryFragment
-//        }
-//    }
     companion object {
         var LABEL_TEXT = "Chosen country:  "
     }

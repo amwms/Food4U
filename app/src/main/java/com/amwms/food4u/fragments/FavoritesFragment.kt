@@ -15,17 +15,15 @@ import com.amwms.food4u.adapters.FavoriteSetAdapter
 import com.amwms.food4u.databinding.FragmentFavoritesBinding
 import com.amwms.food4u.viewmodels.CoordinateViewModel
 import com.amwms.food4u.viewmodels.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
 
 class FavoritesFragment : Fragment() {
 
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
-    private val sharedViewModel: CoordinateViewModel by activityViewModels()
+
     private lateinit var userId: String
 
     private val favoritesViewModel: FavoritesViewModel by activityViewModels {

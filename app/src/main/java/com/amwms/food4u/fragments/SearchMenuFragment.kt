@@ -93,11 +93,6 @@ class SearchMenuFragment : Fragment() {
         recyclerView.adapter = searchMenuAdapter
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private fun createAllergenChoiceAlertDialog(view: View?) {
         val builder = AlertDialog.Builder(requireContext())
             .setTitle("Select allergens you are allergic to")
@@ -208,6 +203,11 @@ class SearchMenuFragment : Fragment() {
 
         toast.setGravity(Gravity.CENTER, 0 , 0)
         toast.show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

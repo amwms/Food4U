@@ -6,11 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.amwms.food4u.Food4UApplication
-import com.amwms.food4u.adapters.FavoriteSetAdapter
 import com.amwms.food4u.adapters.RestaurantMenuAdapter
 import com.amwms.food4u.databinding.FragmentSetBinding
 import com.amwms.food4u.viewmodels.CoordinateViewModel
@@ -23,7 +21,7 @@ class SetFragment : Fragment() {
     private var _binding: FragmentSetBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
-    private val sharedViewModel: CoordinateViewModel by activityViewModels()
+
     private lateinit var setId : String
     private lateinit var setName : String
 

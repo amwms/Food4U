@@ -6,25 +6,28 @@
     <string name="search">Search</string>
     <string name="create">Create</string>
     <string name="favorites">Favorites</string>
+    <string name="search_menu">Search Menu</string>
+    <string name="create_set">Create Set</string>
+    <string name="set">Set</string>
 
     <string name="change_restaurant">Change restaurant</string>
     <string name="country">Country</string>
     <string name="poland">Poland</string>
-    <string name="submit">Submit</string>
+
     <string name="dish_name_label">Dish name</string>
     <string name="select_allergens">Select Allergens</string>
     <string name="maximum_calories_label">Maximum calories (default: infinity)</string>
     <string name="minimum_calories_label">Minimum calories (default: 0)</string>
-    <string name="search_menu">Search Menu</string>
+    <string name="set_name">Set name</string>
+
     <string name="chosen_country">Chosen country: </string>
-    <string name="chosen_restaurant">Chosen restaurant:</string>
+    <string name="chosen_restaurant">Chosen restaurant: </string>
     <string name="chosen_country_fun">Chosen country: %s</string>
     <string name="chosen_restaurant_fun">Chosen restaurant: %s</string>
-    <string name="cancel">Cancel</string>
-    <string name="create_set">Create Set</string>
-    <string name="set">Set</string>
-    <string name="set_name">Set name</string>
-    <string name="save">Save</string>
     <string name="number_of_sets">Number of sets:</string>
     <string name="set_size">Set size:</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="save">Save</string>
 </resources>

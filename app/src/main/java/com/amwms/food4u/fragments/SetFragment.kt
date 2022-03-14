@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.amwms.food4u.adapters.RestaurantMenuAdapter
 import com.amwms.food4u.databinding.FragmentSetBinding
 import com.amwms.food4u.viewmodels.CoordinateViewModel
 import com.amwms.food4u.viewmodels.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -53,6 +55,13 @@ class SetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.setHeader.text = setName
+        lifecycleScope.launch(Dispatchers.IO) {
+            val calorieSum = favoritesViewModel.calorieSumInSet(setId.toInt())
+
+            this@SetFragment.activity?.runOnUiThread() {
+                binding.setCalories.text = calorieSum.toString()
+            }
+        }
 
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

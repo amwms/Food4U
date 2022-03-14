@@ -73,6 +73,13 @@ interface Food4UDao {
     @Query("SELECT * FROM dish WHERE id IN (SELECT dish_id FROM dishset WHERE set_id = :setId GROUP BY dish_id)")
     fun getAllDishesInSet(setId: Int): Flow<List<Dish>>
 
+    @Query("SELECT SUM(c.energy_kcal) FROM" +
+            "(SELECT * FROM dish WHERE id" +
+            "IN (SELECT dish_id FROM dishset WHERE set_id = :setId GROUP BY dish_id)) as d" +
+            "LEFT JOIN menuitem i ON d.id = i.dish_id" +
+            "LEFT JOIN calories c ON i.id = c.menuitem_id GROUP BY d.id")
+    fun getCalorieSumInSet(setId: Int): Int
+
     @Query("SELECT COUNT(*) FROM dish WHERE id = :dishId")
     fun getDishIdExists(dishId: Int): Int
 }

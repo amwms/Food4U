@@ -13,6 +13,8 @@ class FavoritesViewModel(private val food4uDao: Food4UDao): ViewModel() {
 
     fun allDishesInSet(setId: Int): Flow<List<Dish>> = food4uDao.getAllDishesInSet(setId)
 
+    fun calorieSumInSet(setId: Int): Int = food4uDao.getCalorieSumInSet(setId)
+
 }
 
 class FavoritesViewModelFactory(

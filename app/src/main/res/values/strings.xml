@@ -26,6 +26,8 @@
     <string name="chosen_restaurant_fun">Chosen restaurant: %s</string>
     <string name="number_of_sets">Number of sets:</string>
     <string name="set_size">Set size:</string>
+    <string name="calories_in_set">Number of calories in set:</string>
+    <string name="kcal">kcal</string>
 
     <string name="cancel">Cancel</string>
     <string name="submit">Submit</string>

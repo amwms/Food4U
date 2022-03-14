@@ -1,6 +1,7 @@
 package com.amwms.food4u.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.amwms.food4u.database.entities.*
@@ -73,10 +74,10 @@ interface Food4UDao {
     @Query("SELECT * FROM dish WHERE id IN (SELECT dish_id FROM dishset WHERE set_id = :setId GROUP BY dish_id)")
     fun getAllDishesInSet(setId: Int): Flow<List<Dish>>
 
-    @Query("SELECT SUM(c.energy_kcal) FROM" +
-            "(SELECT * FROM dish WHERE id" +
-            "IN (SELECT dish_id FROM dishset WHERE set_id = :setId GROUP BY dish_id)) as d" +
-            "LEFT JOIN menuitem i ON d.id = i.dish_id" +
+    @Query("SELECT SUM(c.energy_kcal) FROM " +
+            "(SELECT * FROM dish WHERE id " +
+            "IN (SELECT dish_id FROM dishset WHERE set_id = :setId GROUP BY dish_id)) as d " +
+            "LEFT JOIN menuitem i ON d.id = i.dish_id " +
             "LEFT JOIN calories c ON i.id = c.menuitem_id GROUP BY d.id")
     fun getCalorieSumInSet(setId: Int): Int
 

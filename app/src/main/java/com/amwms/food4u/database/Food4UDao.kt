@@ -65,14 +65,32 @@ interface Food4UDao {
     @Insert(entity = FavoriteSet::class)
     fun insertNewSet(set: FavoriteSet)
 
+    @Delete(entity = FavoriteSet::class)
+    fun deleteSet(set: FavoriteSet)
+
+    @Delete(entity = DishSet::class)
+    fun deleteDishInSet(dishSet: DishSet)
+
+    @Query("SELECT * FROM dishset WHERE dish_id = :dishId AND set_id = :setId")
+    fun getDishSetById(dishId: Int, setId: Int): DishSet
+
+    @Query("SELECT * FROM favoriteset WHERE id = :setId")
+    fun getFavoriteSetById(setId: Int): FavoriteSet
+
     @Query("SELECT COUNT(id) FROM favoriteset")
     fun getSetCount(): Int
+
+    @Query("SELECT MAX(id) FROM favoriteset")
+    fun getHighestSetId(): Int
 
     @Query("SELECT * FROM favoriteset WHERE user_id = :userId")
     fun getAllFavoriteSets(userId: String): Flow<List<FavoriteSet>>
 
     @Query("SELECT * FROM dish WHERE id IN (SELECT dish_id FROM dishset WHERE set_id = :setId GROUP BY dish_id)")
     fun getAllDishesInSet(setId: Int): Flow<List<Dish>>
+
+    @Query("SELECT * FROM dish WHERE id IN (SELECT dish_id FROM dishset WHERE set_id = :setId GROUP BY dish_id)")
+    fun getAllDishesInSetList(setId: Int): List<Dish>
 
     @Query("SELECT SUM(c.energy_kcal) FROM " +
             "(SELECT * FROM dish WHERE id " +

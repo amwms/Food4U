@@ -114,7 +114,9 @@
             app:argType="string" />
         <action
             android:id="@+id/action_setFragment_to_favoritesFragment"
-            app:destination="@id/favoritesFragment" />
+            app:destination="@id/favoritesFragment"
+            app:popUpTo="@id/favoritesFragment"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_setFragment_to_caloriesFragment"
             app:destination="@id/caloriesFragment" />

@@ -90,7 +90,7 @@ class SaveSetFragment : Fragment() {
         val setName = binding.setNameEditText.text.toString()
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val newSetId = createSetViewModel.numberOfSets() + 1
+            val newSetId = createSetViewModel.highestSetId() + 1
             Log.d("saveSet", newSetId.toString())
             val newSet = FavoriteSet(newSetId, userId, setName, calorieCount.toInt())
 

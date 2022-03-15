@@ -22,6 +22,8 @@ class CreateSetViewModel(private val food4uDao: Food4UDao): ViewModel() {
 
     fun numberOfSets(): Int = food4uDao.getSetCount()
 
+    fun highestSetId(): Int = food4uDao.getHighestSetId()
+
     private fun dishExists(dishId: Int): Int = food4uDao.getDishIdExists(dishId)
 
     fun addNewDishToSetEntry(newSetId: Int, dishId: Int) {
